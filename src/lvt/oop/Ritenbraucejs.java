@@ -38,16 +38,57 @@ public class Ritenbraucejs {
 						,veidi, veidi[0]);
 				if (izvele == null)break;
 				
+				int ritenaD = parbaude.skaitlaParbaudeI("Ievadi riteņa diametru", 12, 29);
+				int sedeklaPoz = parbaude.skaitlaParbaudeI("Ievadi sēdeķla poziciju", 1, 30);
+				double cena = parbaude.skaitlaParbaudeD("Ievadi cenu", 1);
+				String razotajs = parbaude.virknesParbaude("Ievadi ražotāju");
+				
 				switch(izvele) {
 				case "Velosipēds":
-					int ritenaD = Parbaude.skaitlaParbaudeI("Ievadi riteņa diametru", 12, 29);
-					int sedeklaPoz = Parbaude.skaitlaParbaudeI("Ievadi sēdeķla poziciju", 1, 30);
-					double cena = Parbaude.skaitlaParbaudeD("Ievadi cenu", 1);
-					String razotajs = Parbaude.virknesParbaude("Ievadi ražotāju");
+					Velosipeds velosipeds = new Velosipeds(ritenaD, sedeklaPoz, cena, razotajs);
+					riteni.add(velosipeds);
 					break;
+					
 				case "Kalnu velosipēds":
+					int Atrums = parbaude.skaitlaParbaudeI("Cik ritenim būs ātrumi ", 1, 8);
+				
+					izvele = (String)JOptionPane.showInputDialog(null, "Vai būs atsperes",
+							"Izvēlne", JOptionPane.QUESTION_MESSAGE, null
+							,atbilde, atbilde[0]);
+					if(izvele == null) break;
+					
+					boolean a;
+					if(izvele == "Jā")
+						a = true;
+					else a = false;
+					
+					KalnuRitenis kRitenis = new KalnuRitenis(Atrums, a,
+							ritenaD, sedeklaPoz, cena, razotajs);
+					riteni.add(kRitenis);	
 					break;
+					
 				case "Bērnu velosipēds":
+					izvele = (String)JOptionPane.showInputDialog(null, "Vai būs papildriteņi?",
+							"Izvēlne", JOptionPane.QUESTION_MESSAGE, null
+							,atbilde, atbilde[0]);
+					if(izvele == null) break;
+					
+					boolean rit;
+					if(izvele == "Jā") rit = true;
+					else rit = false;
+					
+					izvele = (String)JOptionPane.showInputDialog(null, "Vai būs zvaniņš?",
+							"Izvēlne", JOptionPane.QUESTION_MESSAGE, null
+							,atbilde, atbilde[0]);
+					if(izvele == null) break;
+					
+					boolean zvan;
+					if(izvele == "Jā") zvan = true;
+					else zvan = false;
+					
+					BernuRitenis bRitenis = new BernuRitenis(rit, zvan,
+							ritenaD, sedeklaPoz, cena, razotajs);
+					riteni.add(bRitenis);
 					break;
 				}
 			}
