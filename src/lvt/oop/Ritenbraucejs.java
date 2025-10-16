@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 public class Ritenbraucejs {
 
@@ -32,19 +35,20 @@ public class Ritenbraucejs {
 						,veidi, veidi[0]);
 				if (izvele == null)break;
 				
-				int ritenaD = parbaude.skaitlaParbaudeI("Ievadi riteņa diametru", 12, 29);
-				int sedeklaPoz = parbaude.iestatitSedekli();
-				double cena = parbaude.skaitlaParbaudeD("Ievadi cenu", 1);
-				String razotajs = parbaude.virknesParbaude("Ievadi ražotāju");
+				double ritenaD = Metodes.skaitlaParbaude("Ievadi riteņa diametru", 12, 29);
+				int sedeklaPoz = Metodes.iestatitSedekli();
+				double cena = Metodes.skaitlaParbaude("Ievadi cenu", 1.0, 9999.99);
+				String razotajs = Metodes.virknesParbaude("Ievadi ražotāju");
 				
 				switch(izvele) {
 				case "Velosipēds":
-					Velosipeds velosipeds = new Velosipeds(ritenaD, sedeklaPoz, cena, razotajs);
-					riteni.add(velosipeds);
+					riteni.add(new Velosipeds((int)ritenaD, sedeklaPoz, cena, razotajs));
+					JOptionPane.showMessageDialog(null, "Veiksmīgi uztaisīts velosipēds",
+							"Paziņojums", JOptionPane.INFORMATION_MESSAGE);
 					break;
 					
 				case "Kalnu velosipēds":
-					int Atrums = parbaude.skaitlaParbaudeI("Cik ritenim būs ātrumi ", 1, 8);
+					int Atrums = Metodes.iestatitAtrumu();
 				
 					izvele = (String)JOptionPane.showInputDialog(null, "Vai būs atsperes",
 							"Izvēlne", JOptionPane.QUESTION_MESSAGE, null
@@ -56,9 +60,10 @@ public class Ritenbraucejs {
 						a = true;
 					else a = false;
 					
-					KalnuRitenis kRitenis = new KalnuRitenis(Atrums, a,
-							ritenaD, sedeklaPoz, cena, razotajs);
-					riteni.add(kRitenis);	
+					riteni.add(new KalnuRitenis(Atrums, a,
+							(int)ritenaD, sedeklaPoz, cena, razotajs));	
+					JOptionPane.showMessageDialog(null, "Veiksmīgi uztaisīts kalnu ritenis",
+							"Paziņojums", JOptionPane.INFORMATION_MESSAGE);
 					break;
 					
 				case "Bērnu velosipēds":
@@ -80,15 +85,48 @@ public class Ritenbraucejs {
 					if(izvele == "Jā") zvan = true;
 					else zvan = false;
 					
-					BernuRitenis bRitenis = new BernuRitenis(rit, zvan,
-							ritenaD, sedeklaPoz, cena, razotajs);
-					riteni.add(bRitenis);
+					riteni.add(new BernuRitenis(rit, zvan,
+							(int)ritenaD, sedeklaPoz, cena, razotajs));
+					JOptionPane.showMessageDialog(null, "Veiksmīgi uztaisīts bērnu ritenis",
+							"Paziņojums", JOptionPane.INFORMATION_MESSAGE);
 					break;
 				}
 				break;
 			case 1:
-				if(riteni.size() < 0) break;
+				if(riteni.size() > 0) { 
+					int ritID = Metodes.ritenaIzvele(riteni);
+					
+				}else {
+					JOptionPane.showMessageDialog(null, "Nav ievadīts neviens ritenis",
+							"Kļūda", JOptionPane.ERROR_MESSAGE);
+					break;
+				}
 				
+				break;
+				
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				String str = "";
+				if(riteni.size()>0) {
+				for(int i=0; i<riteni.size(); i++) {
+					
+					
+				}
+				JTextArea ta = new JTextArea (str, 10, 40);
+				ta.setEditable(false);
+				JScrollPane sp = new JScrollPane(ta);
+				sp.setVerticalScrollBarPolicy(
+						ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+				JOptionPane.showMessageDialog(ta, sp, "Riteņi",
+						JOptionPane.PLAIN_MESSAGE);
+				}
+				break;
+			case 5:
+				JOptionPane.showMessageDialog(null, "Programma apturēta", "Apturēta",
+						JOptionPane.PLAIN_MESSAGE);
 				break;
 			}
 		}while(izvelesID != 5);

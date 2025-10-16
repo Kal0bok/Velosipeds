@@ -51,4 +51,14 @@ public class BernuRitenis extends Velosipeds{
 					"Paziņojums", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	public String izvadit() {
+		return "Riteņa ražotājs: "+noteiktRaz()+
+				"\nRiteņa cena: "+noteiktCenu()+
+				"\nRiteņa leilums collās: "+noteiktRitenaD()+
+				"\nIEstatītais sēdekļa garums: "+noteiktSedeklaPoz()+
+				"\nKustības ātrums: "+noteiktAtr()+"m/s"+
+				"\nZvaniņš ir "+((zvanins)? "Ir": "Nav")+
+				"\nPalīgriteņi: "+((paligriteni)? "Ir": "Nav");
+	}
 }
